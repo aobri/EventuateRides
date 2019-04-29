@@ -1,0 +1,55 @@
+buildscript {
+
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+    dependencies {
+        classpath "com.avast.gradle:gradle-docker-compose-plugin:$dockerComposePluginVersion"
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion"
+        classpath "io.spring.gradle:dependency-management-plugin:$springGradleDependencyManagementVersion"
+    }
+}
+
+group = 'com.aobri.eventuaterides'
+version = '0.0.1'
+
+
+apply plugin: "java"
+apply plugin: "org.springframework.boot"
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
+
+repositories {
+    mavenCentral()
+    jcenter()
+    //    mavenLocal()
+//    maven { url "https://dl.bintray.com/eventuateio-oss/eventuate-maven-release/" }
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+dependencies {
+
+    implementation "io.eventuate.client.java:eventuate-client-java-spring:$eventuateClientVersion"
+    implementation "io.eventuate.local.java:eventuate-local-java-jdbc:$eventuateLocalVersion"
+    implementation "io.eventuate.local.java:eventuate-local-java-embedded-cdc-autoconfigure:$eventuateLocalVersion"
+
+    implementation "org.springframework.boot:spring-boot-starter-web:$springBootVersion"
+    implementation "org.springframework.boot:spring-boot-starter-web-services:$springBootVersion"
+    implementation "org.springframework.boot:spring-boot-starter-jdbc:$springBootVersion"
+    implementation "org.springframework.boot:spring-boot-starter-actuator:$springBootVersion"
+    implementation "org.springframework.boot:spring-boot-starter-data-jpa:$springBootVersion"
+    implementation "org.springframework.boot:spring-boot-starter-data-mongodb:$springBootVersion"
+    runtimeOnly 'mysql:mysql-connector-java'
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    implementation "io.springfox:springfox-swagger2:2.9.2"
+    implementation "io.springfox:springfox-swagger-ui:2.9.2"
+//    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
