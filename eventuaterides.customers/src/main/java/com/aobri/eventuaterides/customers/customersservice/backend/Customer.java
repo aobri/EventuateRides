@@ -18,7 +18,8 @@ public class Customer extends ReflectiveMutableCommandProcessingAggregate<Custom
     private Integer ratingsCount;
 
     public List<Event> process(CreateCustomerCommand cmd) {
-        return EventUtil.events(new CustomerCreatedEvent(cmd.getName(), cmd.getMobileNumber(), cmd.getLocation(), cmd.getCredit()));
+        return EventUtil.events(new CustomerCreatedEvent(cmd.getName(), cmd.getMobileNumber(), cmd.getLocation()),
+                new CustomerCreditAddedEvent(cmd.getCredit()));
     }
 
     public List<Event> process(AddCustomerCreditCommand cmd) {
@@ -29,10 +30,10 @@ public class Customer extends ReflectiveMutableCommandProcessingAggregate<Custom
         this.name = event.getName();
         this.mobileNumber = event.getMobileNumber();
         this.location = event.getLocation();
-        this.credit = event.getCredit();
+        this.credit = 0;
     }
 
-    public void apply(AddCustomerCreditCommand event) {
+    public void apply(CustomerCreditAddedEvent event) {
         this.credit += event.getAdditionalCredit();
     }
 

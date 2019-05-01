@@ -1,9 +1,7 @@
 package com.aobri.eventuaterides.customers.customersservice.web;
 
 
-import com.aobri.eventuaterides.customers.customerscommon.CreateCustomerRequest;
-import com.aobri.eventuaterides.customers.customerscommon.CreateCustomerResponse;
-import com.aobri.eventuaterides.customers.customerscommon.GetCustomerResponse;
+import com.aobri.eventuaterides.customers.customerscommon.*;
 import com.aobri.eventuaterides.customers.customersservice.backend.Customer;
 import com.aobri.eventuaterides.customers.customersservice.backend.CustomerService;
 import io.eventuate.EntityNotFoundException;
@@ -25,12 +23,23 @@ public class CustomerController {
         this.customerService = customerService;
     }
 
+
     @RequestMapping(value = "/customers", method = RequestMethod.POST)
     public CompletableFuture<CreateCustomerResponse> createCustomer(@RequestBody CreateCustomerRequest createCustomerRequest) {
         return customerService.createCustomer(createCustomerRequest.getName(), createCustomerRequest.getMobileNumber(),
                 createCustomerRequest.getLocation(), createCustomerRequest.getCredit())
                 .thenApply(ewidv -> new CreateCustomerResponse(ewidv.getEntityId()));
     }
+
+
+    @RequestMapping(value = "/customers", method = RequestMethod.PATCH)
+    public CompletableFuture<AddCustomerCreditResponse> addCredit(@RequestBody AddCustomerCreditRequest addCustomerCreditRequest) {
+        return customerService.addCredit(addCustomerCreditRequest.getCustomerId(), addCustomerCreditRequest.getAdditionalCredit())
+                .thenApply(customerEntityWithIdAndVersion -> new AddCustomerCreditResponse(addCustomerCreditRequest.getCustomerId(),
+                        customerEntityWithIdAndVersion.getAggregate().getName(),
+                        customerEntityWithIdAndVersion.getAggregate().getCredit()));
+    }
+
 
     @RequestMapping(value = "/customers/{customerId}", method = RequestMethod.GET)
     public ResponseEntity<GetCustomerResponse> getCustomer(@PathVariable String customerId) {
@@ -47,5 +56,4 @@ public class CustomerController {
                         customer.getMobileNumber(), customer.getLocation(), customer.getCredit());
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
-
 }

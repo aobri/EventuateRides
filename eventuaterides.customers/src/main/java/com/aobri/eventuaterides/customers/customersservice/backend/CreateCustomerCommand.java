@@ -7,6 +7,9 @@ public class CreateCustomerCommand implements CustomerCommand {
     private String location;
     private Integer credit;
 
+    public CreateCustomerCommand() {
+    }
+
     public CreateCustomerCommand(String name, String mobileNumber, String location, Integer credit) {
         this.name = name;
         this.mobileNumber = mobileNumber;

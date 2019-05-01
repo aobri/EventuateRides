@@ -1,14 +1,14 @@
-package com.aobri.eventuaterides.customers.customersservice.backend;
+package com.aobri.eventuaterides.customers.customerscommon;
 
-public class AddCustomerCreditCommand implements CustomerCommand {
+public class AddCustomerCreditRequest {
 
     private String customerId;
     private Integer additionalCredit;
 
-    public AddCustomerCreditCommand() {
+    public AddCustomerCreditRequest() {
     }
 
-    public AddCustomerCreditCommand(String customerId, Integer additionalCredit) {
+    public AddCustomerCreditRequest(String customerId, Integer additionalCredit) {
         this.customerId = customerId;
         this.additionalCredit = additionalCredit;
     }

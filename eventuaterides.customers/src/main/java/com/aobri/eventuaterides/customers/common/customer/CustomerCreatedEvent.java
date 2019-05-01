@@ -5,16 +5,14 @@ public class CustomerCreatedEvent implements CustomerEvent {
     private String name;
     private String mobileNumber;
     private String location;
-    private Integer credit;
 
     public CustomerCreatedEvent() {
     }
 
-    public CustomerCreatedEvent(String name, String mobileNumber, String location, Integer credit) {
+    public CustomerCreatedEvent(String name, String mobileNumber, String location) {
         this.name = name;
         this.mobileNumber = mobileNumber;
         this.location = location;
-        this.credit = credit;
     }
 
     public String getName() {
@@ -27,10 +25,6 @@ public class CustomerCreatedEvent implements CustomerEvent {
 
     public String getLocation() {
         return location;
-    }
-
-    public Integer getCredit() {
-        return credit;
     }
 
 }

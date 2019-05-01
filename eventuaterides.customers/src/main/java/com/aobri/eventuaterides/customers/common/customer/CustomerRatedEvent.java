@@ -5,6 +5,9 @@ public class CustomerRatedEvent implements CustomerEvent {
     private String customerId;
     private Integer rating;
 
+    public CustomerRatedEvent() {
+    }
+
     public CustomerRatedEvent(String customerId, Integer rating) {
         this.customerId = customerId;
         this.rating = rating;

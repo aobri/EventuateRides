@@ -21,6 +21,11 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    public CompletableFuture<EntityWithIdAndVersion<Customer>> addCredit(String customerId, Integer additionalCredit) {
+        return customerRepository.update(customerId, new AddCustomerCreditCommand(customerId, additionalCredit));
+    }
+
+    @Override
     public EntityWithMetadata<Customer> findById(String customerId) {
         EntityWithMetadata<Customer> customerWithMetadata = null;
         try {
