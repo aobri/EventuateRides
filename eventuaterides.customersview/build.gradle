@@ -1,0 +1,49 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+    dependencies {
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion"
+//        classpath "io.spring.gradle:dependency-management-plugin:$springGradleDependencyManagementVersion"
+    }
+}
+
+plugins {
+    id 'java'
+}
+
+group 'com.aobri.eventuaterides'
+
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
+
+repositories {
+    mavenCentral()
+    jcenter()
+    mavenLocal()
+    maven { url "https://dl.bintray.com/eventuateio-oss/eventuate-maven-release/" }
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+dependencies {
+
+    implementation "io.eventuate.client.java:eventuate-client-java-spring:$eventuateClientVersion"
+    implementation "io.eventuate.local.java:eventuate-local-java-jdbc:$eventuateLocalVersion"
+
+    implementation "org.springframework.boot:spring-boot-starter-web:$springBootVersion"
+    implementation "org.springframework.boot:spring-boot-starter-data-mongodb:$springBootVersion"
+
+    compileOnly 'org.projectlombok:lombok:1.18.6'
+    annotationProcessor 'org.projectlombok:lombok:1.18.6'
+
+    implementation "io.springfox:springfox-swagger2:2.9.2"
+    implementation "io.springfox:springfox-swagger-ui:2.9.2"
+
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
