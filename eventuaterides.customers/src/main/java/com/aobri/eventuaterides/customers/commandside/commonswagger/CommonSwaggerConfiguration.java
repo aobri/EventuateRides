@@ -25,7 +25,7 @@ public class CommonSwaggerConfiguration {
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.aobri.eventuaterides"))
+                .apis(RequestHandlerSelectors.basePackage("com.aobri.eventuaterides.customers.commandside"))
                 .build()
                 .pathMapping("/")
                 .genericModelSubstitutes(ResponseEntity.class, CompletableFuture.class)
